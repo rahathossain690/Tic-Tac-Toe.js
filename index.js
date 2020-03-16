@@ -4,7 +4,8 @@ function computerAction(x, y){
 }
 
 function resultAction(x){
-	console.log(x);
+	if(x == "not yet") return;
+	alert(x);
 }
 
 let game = new Game(computerAction, resultAction);

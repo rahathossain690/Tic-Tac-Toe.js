@@ -1,5 +1,3 @@
-
-
 function Game(computerAction, resultAction){
 	this.matrix = [[null, null, null, null],
 								[null, null, null, null],
@@ -22,8 +20,7 @@ function Game(computerAction, resultAction){
 	
 	this.start = function(){
 		this.started = true;
-		console.log("game started");
-		if(this.isHumanFirst == false){ // if it is first
+		if(this.isHumanFirst == false){
 			let ans = this.findMove();
 			this.matSet(ans[0], ans[1], 1);
 			computerAction(ans[0], ans[1]);
@@ -39,27 +36,27 @@ function Game(computerAction, resultAction){
 		this.result = "not yet";
 		this.rest = 9;
 		this.stop = false;
-		console.log("Game reset");
 	}
 	
 	this.setHumanFirst = function(setter){
 		this.isHumanFirst = setter;
-		console.log("First person human");
 	}
 	
 	this.humanTurn = function(x, y){
-		//console.log("Player:", x, y);
 		this.matSet(x, y, 0);
+		if(this.stop) return;
 		let ans = this.findMove();
 		this.matSet(ans[0], ans[1], 1);
 		computerAction(ans[0], ans[1]);
 	}
 
-	this.matSet = function(x, y, jin){
+	this.matSet = function(x, y, jin, extra){
 		if(this.matrix[x][y] !== null) return;
 		if(this.stop) return;
 		this.matrix[x][y] = jin;
-		this.rest -= 1;
+		if(jin === null) this.rest += 1;
+		else this.rest -= 1;
+		if(extra) return;
 		if(this.win(1)) this.result = "LOST", this.stop = true;
 		else if(this.win(0)) this.result = "WIN", this.stop = true;
 		else if(this.rest == 0) this.result = "DRAW", this.stop = true;
@@ -91,17 +88,18 @@ function Game(computerAction, resultAction){
 		if(this.rest == 0) return 0;
 		
 		let x = null, y = null;
-		let best;
+		let best = 1;
 		if(comp) best = -1;
-		else best = 1;
 
 		for(let i = 1; i <= 3; i++){
 			for(let j = 1; j <= 3; j++){
-				if(this.matrix[i][j] != null) break;
+				if(this.matrix[i][j] !== null) continue;
 				this.matrix[i][j] = comp ? 1 : 0;
+				this.rest -= 1;
 				let fin = this.backtrack(!comp);
-				if(comp) best = max(fin, best);
-				else best = min(fin, best);
+				if(comp) best = Math.max(fin, best);
+				else best = Math.min(fin, best);
+				this.rest += 1;
 				this.matrix[i][j] = null;
 			}
 		}
@@ -111,26 +109,24 @@ function Game(computerAction, resultAction){
 
 	this.findMove = function(){
 		let x = null, y = null;
-		
 		let win = [];
 		let draw = [];
 		let lose = [];
 
 		for(let i = 1; i <= 3; i++){
 			for(let j = 1; j <= 3; j++){
-				if(this.matrix[i][j] != null) break;
+				if(this.matrix[i][j] !== null) continue;
 				this.matrix[i][j] = 1;
+				this.rest -= 1;
 				let fin = this.backtrack(0);
 				if(fin == 1) win.push([i, j]);
 				else if(fin == 0) draw.push([i, j]);
 				else lose.push([i, j]);
+				this.rest += 1;
 				this.matrix[i][j] = null;
 			}
 		}
-		console.log(win);
-		console.log(draw);
-		console.log(lose);
-		
+
 		if(win.length != 0) return this.getRandom(win);
 		else if(draw.length != 0) return this.getRandom(draw);
 		else return this.getRandom(lose);
@@ -139,12 +135,4 @@ function Game(computerAction, resultAction){
 	this.getRandom = function(array){
 		return array[ Math.floor(Math.random() * array.length) ];
 	}
-}
-
-function max(a, b){
-	return a > b ? a : b;
-}
-
-function min(a, b){
-	return a > b ? b : a;
 }
