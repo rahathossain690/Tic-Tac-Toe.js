@@ -36,6 +36,7 @@ function Game(computerAction, resultAction){
 		this.result = "not yet";
 		this.rest = 9;
 		this.stop = false;
+		this.isHumanFirst = true;
 	}
 	
 	this.setHumanFirst = function(setter){

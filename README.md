@@ -45,6 +45,6 @@ game.reset(); // resets the game at any point
 ```
 6. Define human moves by the function call game.humanTurn(row, col).
 ```
-game.humarTurn(2, 3); // records the move at cell(2, 3) for Human
+game.humanTurn(2, 3); // records the move at cell(2, 3) for Human
 ```
 7. That's basically it. Enjoy playing with it. The library will automatically trigger external function, find next move and show result for any move played.
