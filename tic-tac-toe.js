@@ -21,7 +21,7 @@ function Game(computerAction, resultAction){
 	this.start = function(){
 		this.started = true;
 		if(this.isHumanFirst == false){
-			let ans = this.findMove();
+			let ans = this.findMove(); 
 			this.matSet(ans[0], ans[1], 1);
 			computerAction(ans[0], ans[1]);
 		}

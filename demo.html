@@ -1,29 +1,41 @@
 <style type="text/css">
-button{
+.btn{
 	width: 70px;
 	height: 70px;
 }
 </style>
 <body align="center">
 	<h1>Tic-Tac-Toe.js Demo</h1>
-	<button>Restart</button>
+	<button onclick="restart()">Restart</button><br><br>
+	
+	<input type="button" id="hf" value="Human First" onclick="setHumanFirst(true)" name="hf" checked>
+	
+	<input type="button" onclick="setHumanFirst(false)" id="cf" value="Computer First" name="cf">
+	<br>
+	
+	<i>[Before changing whom to play first, you must restart the game. Here it is done in code.]</i><hr>
+
 	<table align="center">
 		<tr>
-			<td> <button onclick="clicked(1,1)" Id="11"></button> </td>
-			<td> <button onclick="clicked(1,2)" Id="12"></button> </td>
-			<td> <button onclick="clicked(1,3)" Id="13"></button> </td>
+			<td> <button onclick="clicked(1,1)" Id="11" class="btn"></button> </td>
+			<td> <button onclick="clicked(1,2)" Id="12" class="btn"></button> </td>
+			<td> <button onclick="clicked(1,3)" Id="13" class="btn"></button> </td>
 		</tr>
 		<tr>
-			<td> <button onclick="clicked(2,1)" Id="21"></button> </td>
-			<td> <button onclick="clicked(2,2)" Id="22"></button> </td>
-			<td> <button onclick="clicked(2,3)" Id="23"></button> </td>
+			<td> <button onclick="clicked(2,1)" Id="21" class="btn"></button> </td>
+			<td> <button onclick="clicked(2,2)" Id="22" class="btn"></button> </td>
+			<td> <button onclick="clicked(2,3)" Id="23" class="btn"></button> </td>
 		</tr>
 		<tr>
-			<td> <button onclick="clicked(3,1)" Id="31"></button> </td>
-			<td> <button onclick="clicked(3,2)" Id="32"></button> </td>
-			<td> <button onclick="clicked(3,3)" Id="33"></button> </td>
+			<td> <button onclick="clicked(3,1)" Id="31" class="btn"></button> </td>
+			<td> <button onclick="clicked(3,2)" Id="32" class="btn"></button> </td>
+			<td> <button onclick="clicked(3,3)" Id="33" class="btn"></button> </td>
 		</tr>
 	</table>
+	<br>
+	<b>Result:</b> <i id="result"></i>
+	<hr>
+	<i>Created by <a href="https://www.facebook.com/rahat.hossain.9678">Rahat Hossain</a></i>
 </body>
 <script src="tic-tac-toe.js"></script>
 <script src="demo.js"></script>
